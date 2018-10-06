@@ -19,3 +19,5 @@ iii. [Misc Notes](#misc)
 GOPATH via Powershell
 
     cd $Env:gopath
+
+`Polymorphism` - using a single symbol for multiple different types
