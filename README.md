@@ -15,3 +15,5 @@ iii. [Misc Notes](#misc)
 
 
 ### Misc
+
+**GoPath via Powershell**  ~  `cd $Env:gopath`
