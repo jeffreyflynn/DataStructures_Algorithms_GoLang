@@ -8,12 +8,14 @@ iii. [Misc Notes](#misc)
 
 #
 
-### Go Basics
+## Go Basics
 
 
-### Go Tips and Tricks
+## Go Tips and Tricks
 
 
-### Misc
+## Misc
 
-**GoPath via Powershell**  ~  `cd $Env:gopath`
+GOPATH via Powershell
+
+    cd $Env:gopath
