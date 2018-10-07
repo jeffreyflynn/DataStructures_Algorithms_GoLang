@@ -1,13 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Node struct {
-	// pointers to the node's previous and next nodes
-	next, prev *Node
-
-	// the value stored within this node
-	value interface{}
+	val        interface{} // the value stored within this node
+	prev, next *Node
 }
 
 /*********************************************************************************/
@@ -17,105 +16,85 @@ type List struct {
 	tail *Node
 }
 
-// add new node to tail of linked list
-func (l *List) Insert_Tail(val interface{}) {
-	n := new(Node)
-	n.value = val
+func (l *List) append(val interface{}) {
+	// note: n.val = input val
+	// note: &n.val = hex memory address
+	n := &Node{val, nil, nil}
 
 	if l.head == nil {
 		l.head = n
-		l.tail = n
 	} else {
-		n.prev = l.tail
 		l.tail.next = n
-		l.tail = n
+		n.prev = l.tail
 	}
+
+	l.tail = n
 }
 
-// add new node to head of linked list
-func (l *List) Insert_Head(val interface{}) {
-	n := new(Node)
-	n.value = val
+func (l *List) remove(v interface{}) interface{} {
+	// if the head of the list contains the value we want to delete
+	if l.head.val == v {
+		ret := l.head.val
 
-	if l.head == nil {
-		l.head = n
-		l.tail = n
-	} else {
-		n.next = l.head
-		l.head.prev = n
-		l.head = n
+		if l.head.next == nil {
+			l.head = nil
+			l.tail = nil
+		} else {
+			l.head = l.head.next
+			l.head.prev = nil
+		}
+
+		return ret
 	}
-}
-
-// insert some value (val) before some other value (node_val)
-func (l *List) Insert_Before(val, node_val interface{}) {
-	n := new(Node)
-	n.value = val
 
 	cur := l.head
-
-	for cur.next != nil && cur.value != node_val {
+	for cur.val != v && cur.next != nil {
 		cur = cur.next
 	}
 
-	if cur.value == node_val {
-		n.prev = cur.prev
-		n.next = cur
-		cur.prev.next = n
-		cur.prev = n
+	// if we made it through the entire list and still haven't found the value
+	if cur.val != v {
+		return nil
 	}
 
-	l.Display()
+	// if the tail of the list contains the value
+	if cur.next == nil {
+		l.tail = l.tail.prev
+		l.tail.next = nil
+	} else { // the value is somewhere in the middle
+		cur.prev.next = cur.next
+		cur.next.prev = cur.prev
+	}
+
+	return cur.val
 }
 
-// returns the address of a node given some value
-func (l *List) Find(val interface{}) **Node {
+func (l *List) print_list() {
 	cur := l.head
+
+	fmt.Println("\n\n-----------------------------------\n\n")
 
 	for cur.next != nil {
+		fmt.Print(cur.val)
+		fmt.Print(" -> ")
 		cur = cur.next
 	}
 
-	if cur.value == val {
-		return &cur
-	}
+	fmt.Print(cur.val)
 
-	return nil
-}
-
-func (l *List) Display() {
-	cur := l.head
-
-	for cur.next != nil {
-		fmt.Printf("%+v -> ", cur.value)
-		cur = cur.next
-	}
-
-	fmt.Printf("%+v", cur.value)
-	fmt.Println()
+	fmt.Println("\n\n-----------------------------------\n\n")
 }
 
 func main() {
-	link := List{}
+	l := new(List)
 
-	link.Insert_Before(0)
-	link.Insert_Before(1)
-	link.Insert_Before(2)
-	link.Insert_Before(3)
-	link.Insert_Before(4)
-	link.Insert_Before(5)
+	l.append(1)
+	l.append(2)
+	l.append(3)
 
-	fmt.Println("\n==============================\n")
-	fmt.Printf("Head: %v\n", link.head.value)
-	fmt.Printf("Tail: %v\n", link.tail.value)
-	link.Display()
-	fmt.Println("\n==============================\n")
+	l.print_list()
 
-	x := link.Find(5)
-	fmt.Println(x)
-	fmt.Println("\n==============================\n")
-	// fmt.Printf("head: %v\n", link.head.key)
-	// fmt.Printf("tail: %v\n", link.tail.key)
-	// link.Reverse()
-	// fmt.Println("\n==============================\n")
+	l.remove(1)
+
+	l.print_list()
 }
