@@ -32,6 +32,7 @@ func (l *List) Insert_Tail(val interface{}) {
 	}
 }
 
+// add new node to head of linked list
 func (l *List) Insert_Head(val interface{}) {
 	n := new(Node)
 	n.value = val
@@ -44,6 +45,42 @@ func (l *List) Insert_Head(val interface{}) {
 		l.head.prev = n
 		l.head = n
 	}
+}
+
+// insert some value (val) before some other value (node_val)
+func (l *List) Insert_Before(val, node_val interface{}) {
+	n := new(Node)
+	n.value = val
+
+	cur := l.head
+
+	for cur.next != nil && cur.value != node_val {
+		cur = cur.next
+	}
+
+	if cur.value == node_val {
+		n.prev = cur.prev
+		n.next = cur
+		cur.prev.next = n
+		cur.prev = n
+	}
+
+	l.Display()
+}
+
+// returns the address of a node given some value
+func (l *List) Find(val interface{}) **Node {
+	cur := l.head
+
+	for cur.next != nil {
+		cur = cur.next
+	}
+
+	if cur.value == val {
+		return &cur
+	}
+
+	return nil
 }
 
 func (l *List) Display() {
@@ -61,17 +98,21 @@ func (l *List) Display() {
 func main() {
 	link := List{}
 
-	link.Insert_Head(0)
-	link.Insert_Head(1)
-	link.Insert_Head(2)
-	link.Insert_Head(3)
-	link.Insert_Head(4)
-	link.Insert_Head(5)
+	link.Insert_Before(0)
+	link.Insert_Before(1)
+	link.Insert_Before(2)
+	link.Insert_Before(3)
+	link.Insert_Before(4)
+	link.Insert_Before(5)
 
 	fmt.Println("\n==============================\n")
 	fmt.Printf("Head: %v\n", link.head.value)
 	fmt.Printf("Tail: %v\n", link.tail.value)
 	link.Display()
+	fmt.Println("\n==============================\n")
+
+	x := link.Find(5)
+	fmt.Println(x)
 	fmt.Println("\n==============================\n")
 	// fmt.Printf("head: %v\n", link.head.key)
 	// fmt.Printf("tail: %v\n", link.tail.key)
