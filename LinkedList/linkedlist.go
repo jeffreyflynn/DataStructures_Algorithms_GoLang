@@ -69,6 +69,13 @@ func (l *List) remove(v interface{}) interface{} {
 	return cur.val
 }
 
+func (l *List) is_empty() bool {
+	if l.head == nil {
+		return true
+	}
+	return false
+}
+
 func (l *List) print_list() {
 	cur := l.head
 
