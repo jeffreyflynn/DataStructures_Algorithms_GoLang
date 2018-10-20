@@ -13,6 +13,7 @@ type LinkedList struct {
 	tail *Node
 }
 
+// add a value to the end of the list
 func (L *LinkedList) Insert(val interface{}) {
 	node := &Node{val, nil, nil}
 
@@ -26,6 +27,7 @@ func (L *LinkedList) Insert(val interface{}) {
 	}
 }
 
+// print the List in order
 func (L *LinkedList) Print() {
 	cur := L.head
 
@@ -37,6 +39,7 @@ func (L *LinkedList) Print() {
 	fmt.Println()
 }
 
+// remove any pre-existing value from the list
 func (L *LinkedList) Remove(val interface{}) {
 	cur := L.head
 
