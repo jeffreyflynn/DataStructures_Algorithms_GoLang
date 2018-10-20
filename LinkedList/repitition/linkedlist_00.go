@@ -14,5 +14,16 @@ type LinkedList struct {
 }
 
 func (L *LinkedList) Insert(val interface{}) {
-	
+	node := &Node{val, nil, nil}
+
+	if L.head == nil {
+		L.head = node
+		L.tail = node
+	} else {
+		L.tail.next = node
+		node.prev = L.tail
+		L.tail = node
+	}
 }
+
+func (L *LinkedList)
