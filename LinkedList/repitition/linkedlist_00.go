@@ -67,6 +67,15 @@ func (L *LinkedList) Remove(val interface{}) {
 	}
 }
 
+// check to see if the list is empty
+func (L *LinkedList) IsEmpty() bool {
+	if L.head == nil {
+		return true
+	} else {
+		return false
+	}
+}
+
 func main() {
 	L := LinkedList{nil, nil}
 
