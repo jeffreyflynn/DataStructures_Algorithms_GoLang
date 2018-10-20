@@ -76,6 +76,26 @@ func (L *LinkedList) IsEmpty() bool {
 	}
 }
 
+// reverse a linked list
+func (L *LinkedList) Reverse() {
+	if L.head == nil {
+		return
+	}
+
+	var prv, nxt *Node
+	cur := L.head
+
+	for cur != nil {
+		nxt = cur.next
+		cur.next = prv
+		prv = cur
+		cur = nxt
+	}
+
+	L.tail = L.head
+	L.head = prv
+}
+
 func main() {
 	L := LinkedList{nil, nil}
 
@@ -87,7 +107,7 @@ func main() {
 
 	L.Print()
 
-	L.Remove(5)
+	L.Reverse()
 
 	L.Print()
 }
