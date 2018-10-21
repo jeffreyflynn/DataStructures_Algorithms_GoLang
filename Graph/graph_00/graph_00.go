@@ -95,6 +95,35 @@ func (G *Graph) BFS(cb func(*Node)) {
 	}
 }
 
+// DFS performs depth first graph traversal
+func (G *Graph) DFS(cb func(n *Node)) {
+	// initialize a map to keep track of the visited nodes
+	visited := make(map[*Node]bool)
+	// initialize a ref variable to the root of the graph
+	node := G.nodes[0]
+	// traverse graph recursively
+	G.TraverseDFS(node, visited, cb)
+}
+
+// TraverseDFS recursively
+func (G *Graph) TraverseDFS(n *Node, v map[*Node]bool, f func(n *Node)) {
+	if n == nil {
+		return
+	}
+
+	f(n)
+	v[n] = true
+
+	near := G.edges[*n]
+
+	for i := 0; i < len(near); i++ {
+		cur := near[i]
+		if !v[cur] {
+			G.TraverseDFS(near[i], v, f)
+		}
+	}
+}
+
 func main() {
 	g := Graph{}
 

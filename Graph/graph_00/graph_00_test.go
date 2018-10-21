@@ -43,3 +43,10 @@ func TestBFS(t *testing.T) {
 		fmt.Printf("\t%v\n", n)
 	})
 }
+
+func TestDFS(t *testing.T) {
+	fmt.Println("Depth First Traversal")
+	g.DFS(func(n *Node) {
+		fmt.Printf("\t%v\n", n)
+	})
+}
