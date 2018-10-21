@@ -15,7 +15,20 @@ func (S *Stack) Print() {
 func (S *Stack) Push(val interface{}) {
 	x := append(S.stack, val)
 	S.stack = x
-	S.count += 1
+	S.count++
+}
+
+func (S *Stack) Pop() {
+	S.stack = S.stack[:S.count-1]
+	S.count--
+}
+
+func (S *Stack) Peek() interface{} {
+	if S.count > 0 {
+		return S.stack[0]
+	} else {
+		return nil
+	}
 }
 
 func main() {
@@ -28,4 +41,10 @@ func main() {
 	S.Push(3)
 
 	S.Print()
+
+	S.Pop()
+
+	S.Print()
+
+	S.Peek()
 }
