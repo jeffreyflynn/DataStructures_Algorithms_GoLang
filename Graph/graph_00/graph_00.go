@@ -26,8 +26,10 @@ func (G *Graph) AddEdge(n1, n2 *Node) {
 	if G.edges == nil {
 		G.edges = make(map[Node][]*Node)
 	}
+	// for undirected graph, execute both statements - undirected edges are a two-way street
+	// for a directed graph, only run the first statement - directed edges only go one direction
 	G.edges[*n1] = append(G.edges[*n1], n2)
-	G.edges[*n2] = append(G.edges[*n2], n1)
+	// G.edges[*n2] = append(G.edges[*n2], n1)
 }
 
 // Print prints the graph structure to the console
