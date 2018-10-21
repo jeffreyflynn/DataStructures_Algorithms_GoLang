@@ -32,7 +32,7 @@ func (G *Graph) AddEdge(n1, n2 *Node) {
 
 // Print prints the graph structure to the console
 func (G *Graph) Print() {
-	s := ""
+	s := "\n"
 
 	for i := 0; i < len(G.nodes); i++ {
 		s += G.nodes[i].String() + " -> "
@@ -74,5 +74,4 @@ func main() {
 	g.AddEdge(&nD, &nA)
 
 	g.Print()
-
 }
