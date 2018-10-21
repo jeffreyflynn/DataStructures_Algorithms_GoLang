@@ -8,7 +8,7 @@ type Node struct {
 
 // return node value as string
 func (n *Node) String() string {
-	return fmt.Sprintf("%v", n.value)
+	return fmt.Sprintf("%v", n.val)
 }
 
 type Graph struct {
@@ -16,13 +16,13 @@ type Graph struct {
 	edges map[Node][]*Node
 }
 
-// add a node to the graph
-func (G *Graph) AddNode(val interface{}) {
-	G.nodes = append(G.nodes, Node{val})
+// AddNode adds a node to the graph
+func (G *Graph) AddNode(n *Node) {
+	G.nodes = append(G.nodes, n)
 }
 
-// add edge to the graph
-func (G *Graph) AddEdge(n1, n2 interface{}) {
+// AddEdge adds an edge to the graph given two input nodes
+func (G *Graph) AddEdge(n1, n2 *Node) {
 	if G.edges == nil {
 		G.edges = make(map[Node][]*Node)
 	}
@@ -30,7 +30,7 @@ func (G *Graph) AddEdge(n1, n2 interface{}) {
 	G.edges[*n2] = append(G.edges[*n2], n1)
 }
 
-// print graph
+// Print prints the graph structure to the console
 func (G *Graph) Print() {
 	s := ""
 
@@ -50,5 +50,29 @@ func (G *Graph) Print() {
 }
 
 func main() {
+	g := Graph{}
+
+	nA := Node{"A"}
+	nB := Node{"B"}
+	nC := Node{"C"}
+	nD := Node{"D"}
+	nE := Node{"E"}
+	nF := Node{"F"}
+
+	g.AddNode(&nA)
+	g.AddNode(&nB)
+	g.AddNode(&nC)
+	g.AddNode(&nD)
+	g.AddNode(&nE)
+	g.AddNode(&nF)
+
+	g.AddEdge(&nA, &nB)
+	g.AddEdge(&nA, &nC)
+	g.AddEdge(&nB, &nE)
+	g.AddEdge(&nC, &nE)
+	g.AddEdge(&nE, &nF)
+	g.AddEdge(&nD, &nA)
+
+	g.Print()
 
 }
