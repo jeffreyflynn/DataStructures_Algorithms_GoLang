@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// Node holds an interface value
 type Node struct {
 	val interface{}
 }
@@ -11,6 +12,7 @@ func (n *Node) String() string {
 	return fmt.Sprintf("%v", n.val)
 }
 
+// Graph is composed of Nodes and Edges (Connections)
 type Graph struct {
 	nodes []*Node
 	edges map[Node][]*Node
@@ -54,32 +56,41 @@ func (G *Graph) Print() {
 // BFS traverses a graph starting from the root node
 // first it traverses all the nodes directly linked to the current node
 // then we process the nodes directly linked to those nodes
-func (G *Graph) BFS(f func(*Node)) {
-	var q []*Node
-	n := G.nodes[0]
-	q = append(q, n)
+func (G *Graph) BFS(cb func(*Node)) {
+
+	// initialize a queue and add the graph's root node to it
+	q := []*Node{G.nodes[0]}
+
+	// initialize a map to keep track of the visited nodes
+	// a map is an unordered collection of key/value pairs
 	visited := make(map[*Node]bool)
 
 	for {
+		// loop until the queue is empty
 		if len(q) == 0 {
 			break
 		}
 
+		// set ref variable to the next node in the queue
 		node := q[0]
+		// remove that node from the queue - aka dequeue
 		q = q[1:]
-		visited[node] = true
+		// set ref variable for the current node's edges (connections)
 		near := G.edges[*node]
 
+		// loop through each edge
 		for i := 0; i < len(near); i++ {
 			j := near[i]
+			// if this edge node has not yet been visited...
 			if !visited[j] {
+				// ...add it to the queue
 				q = append(q, j)
 				visited[j] = true
 			}
 		}
 
-		if f != nil {
-			f(node)
+		if cb != nil {
+			cb(node)
 		}
 	}
 }
