@@ -8,12 +8,12 @@ import (
 var g Graph
 
 func fillGraph() {
-	nA := Node{"0"} // 0
-	nB := Node{"1"} // 1
-	nC := Node{"2"} // 2
-	nD := Node{"3"} // 3
-	nE := Node{"4"} // 4
-	nF := Node{"5"} // 5
+	nA := Node{"0"} // A
+	nB := Node{"1"} // B
+	nC := Node{"2"} // C
+	nD := Node{"3"} // D
+	nE := Node{"4"} // E
+	nF := Node{"5"} // F
 
 	g.AddNode(&nA)
 	g.AddNode(&nB)
