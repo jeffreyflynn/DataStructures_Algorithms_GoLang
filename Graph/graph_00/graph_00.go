@@ -49,6 +49,39 @@ func (G *Graph) Print() {
 	fmt.Println(s)
 }
 
+// BFS traverses a graph starting from the root node
+// first it traverses all the nodes directly linked to the current node
+// then we process the nodes directly linked to those nodes
+func (G *Graph) BFS(f func(*Node)) {
+	var q []*Node
+	n := G.nodes[0]
+	q = append(q, n)
+	visited := make(map[*Node]bool)
+
+	for {
+		if len(q) == 0 {
+			break
+		}
+
+		node := q[0]
+		q = q[1:]
+		visited[node] = true
+		near := G.edges[*node]
+
+		for i := 0; i < len(near); i++ {
+			j := near[i]
+			if !visited[j] {
+				q = append(q, j)
+				visited[j] = true
+			}
+		}
+
+		if f != nil {
+			f(node)
+		}
+	}
+}
+
 func main() {
 	g := Graph{}
 
