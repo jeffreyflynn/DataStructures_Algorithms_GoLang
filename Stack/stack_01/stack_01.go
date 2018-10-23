@@ -19,11 +19,16 @@ func (S *Stack) Pop() interface{} {
 	return p
 }
 
+// Peek returns the top of the stack without removing any elements
+func (S *Stack) Peek() interface{} {
+	return S.stack[S.count-1]
+}
+
 // Length returns the number of elements in the stack
 func (S *Stack) Length() int {
 	return S.count
 }
 
 func main() {
-	
+
 }

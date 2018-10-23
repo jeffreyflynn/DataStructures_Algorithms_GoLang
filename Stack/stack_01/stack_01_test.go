@@ -7,7 +7,7 @@ import (
 
 var s Stack
 
-func TestPush(t *testing.T) {
+func TestStack(t *testing.T) {
 	s.Push(0)
 	s.Push(1)
 	s.Push(2)
@@ -16,7 +16,15 @@ func TestPush(t *testing.T) {
 
 	fmt.Println(s.stack)
 
-	if size := s.Length(); size != 5 {
-		t.Errorf("wrong count, expected 5 and got %d", size)
+	if x := s.Length(); x != 5 {
+		t.Errorf("wrong count, expected 5 and got %d", x)
+	}
+
+	if x := s.Pop(); x != 4 {
+		t.Errorf("error popping, expected 4 and got %d", x)
+	}
+
+	if x := s.Peek(); x != 3 {
+		t.Errorf("error peeking, expected 3 and got %d", x)
 	}
 }
