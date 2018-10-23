@@ -18,3 +18,13 @@ func (Q *Queue) Dequeue() interface{} {
 	Q.count--
 	return x
 }
+
+// Size returns the number of elements in the queue
+func (Q *Queue) Size() int {
+	return Q.count
+}
+
+// Peek returns the top of the queue without removing any elements
+func (Q *Queue) Peek() interface{} {
+	return Q.queue[0]
+}
